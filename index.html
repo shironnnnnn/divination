@@ -3,8 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>卜卦系統</title>
     <style>
+/* 全局手機基礎設定 */
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 防止橫向捲動條 */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%; /* 防止 iOS 旋轉時字體自動變大 */
+}
+
+/* 行動裝置優化媒體查詢 (螢幕寬度 768px 以下) */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 12px; /* 邊界留白，避免文字貼邊 */
+        font-size: 16px; /* 16px 以上可防止 iOS 輸入時自動放大 */
+        line-height: 1.6; /* 加大行高提升閱讀舒適度 */
+    }
+
+    /* 容器自適應寬度 */
+    .container, div {
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* 輸入框與按鈕加大，方便手指點擊 */
+    input, select, button {
+        width: 100%;
+        min-height: 44px; /* 符合觸控按鈕最佳尺寸 */
+        font-size: 16px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        border-radius: 8px; /* 圓角更符合現代手機風格 */
+    }
+
+    /* 程式碼與區塊文字換行 */
+    pre, code {
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-size: 14px;
+    }
+
+    /* 表格自適應滾動（若有使用表格） */
+    table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
         body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; background-color: #f4f1ea; color: #333; margin: 0; padding: 20px; }
         .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         h2 { text-align: center; color: #5a3e2b; margin-bottom: 20px; }
