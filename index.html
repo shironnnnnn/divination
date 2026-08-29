@@ -40,12 +40,12 @@
     
     <div class="form-group">
         <label>起卦日期：</label>
-        <select id="yearType">
+        <select id="yearType" onchange="toggleYearType()">
             <option value="roc">民國</option>
             <option value="ad" selected>西元</option>
         </select>
-        <input type="number" id="year" value="2026"> 年
-        <input type="number" id="month" min="1" max="12" value="1"> 月
+        <input type="number" id="year" value="2026" onchange="updateDays()"> 年
+        <input type="number" id="month" min="1" max="12" value="1" onchange="updateDays()"> 月
         <input type="number" id="day" min="1" max="31" value="1"> 日
     </div>
 
@@ -114,20 +114,14 @@ function updateDays() {
     let month = parseInt(document.getElementById('month').value) || 1;
     const dayInput = document.getElementById('day');
 
-    
     if (month < 1) month = 1;
     if (month > 12) month = 12;
     document.getElementById('month').value = month;
 
-    
     let adYear = (yearType === 'roc') ? (inputYear + 1911) : inputYear;
-    
-    
     let maxDays = new Date(adYear, month, 0).getDate();
     
     dayInput.max = maxDays;
-    
-    
     if (parseInt(dayInput.value) > maxDays) {
         dayInput.value = maxDays;
     }
@@ -163,6 +157,7 @@ const guaNajia = {
     '兌': { inner: ['巳','卯','丑'], outer: ['亥','酉','未'] }
 };
 
+// 已修復：補齊物件屬性間缺失的逗號
 const shiYingDB = {
     "1-1": { shi: 6, ying: 3, type: "本宮六世卦" }, "1-5": { shi: 1, ying: 4, type: "一世卦" },
     "1-7": { shi: 2, ying: 5, type: "二世卦" },     "1-8": { shi: 3, ying: 6, type: "三世卦" },
@@ -190,16 +185,16 @@ const shiYingDB = {
     "8-5": { shi: 4, ying: 1, type: "四世卦" },     
     "6-5": { shi: 5, ying: 2, type: "五世卦" },     
     "2-5": { shi: 4, ying: 1, type: "游魂卦" },     
-    "2-4": { shi: 3, ying: 6, type: "歸魂卦" }
+    "2-4": { shi: 3, ying: 6, type: "歸魂卦" },
 
     "5-5": { shi: 6, ying: 3, type: "本宮六世卦" }, 
     "5-1": { shi: 1, ying: 4, type: "一世卦" },     
     "5-3": { shi: 2, ying: 5, type: "二世卦" },     
     "5-4": { shi: 3, ying: 6, type: "三世卦" },    
     "7-4": { shi: 4, ying: 1, type: "四世卦" },    
-    "5-4": { shi: 5, ying: 2, type: "五世卦" },     
+    "6-4": { shi: 5, ying: 2, type: "五世卦" },     
     "3-4": { shi: 4, ying: 1, type: "游魂卦" },     
-    "3-5": { shi: 3, ying: 6, type: "歸魂卦" }
+    "3-5": { shi: 3, ying: 6, type: "歸魂卦" },
 
     "6-6": { shi: 6, ying: 3, type: "本宮六世卦" }, 
     "6-2": { shi: 1, ying: 4, type: "一世卦" },    
@@ -208,7 +203,7 @@ const shiYingDB = {
     "2-3": { shi: 4, ying: 1, type: "四世卦" },     
     "4-3": { shi: 5, ying: 2, type: "五世卦" },     
     "8-3": { shi: 4, ying: 1, type: "游魂卦" },    
-    "8-6": { shi: 3, ying: 6, type: "歸魂卦" }
+    "8-6": { shi: 3, ying: 6, type: "歸魂卦" },
 
     "7-7": { shi: 6, ying: 3, type: "本宮六世卦" },
     "7-3": { shi: 1, ying: 4, type: "一世卦" },     
@@ -217,7 +212,7 @@ const shiYingDB = {
     "3-2": { shi: 4, ying: 1, type: "四世卦" },     
     "1-2": { shi: 5, ying: 2, type: "五世卦" },     
     "5-2": { shi: 4, ying: 1, type: "游魂卦" },     
-    "5-7": { shi: 3, ying: 6, type: "歸魂卦" }
+    "5-7": { shi: 3, ying: 6, type: "歸魂卦" },
 
     "8-8": { shi: 6, ying: 3, type: "本宮六世卦" },
     "8-4": { shi: 1, ying: 4, type: "一世卦" },     
@@ -230,7 +225,6 @@ const shiYingDB = {
 };
 
 const hexagramsDB = {
-    
     "1-1": {
         name: "乾為天", palace: "乾宮 (屬金)",
         yaoData: {
